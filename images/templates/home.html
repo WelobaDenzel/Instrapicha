@@ -13,9 +13,7 @@
 
     <div class="card-footer">
       <p>{{image.caption}}</p>
-      {% for profile in profiles %}
-      <p>{{profile.name}}</p>
-      {%endfor%}
+      <p>{{image.profile.name}}</p>
       <p>{{image.likes}}</p>
       <p>{{image.comments}}</p>
     </div>
