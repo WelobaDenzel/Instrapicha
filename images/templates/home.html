@@ -1,0 +1,19 @@
+{%extends 'base.html'%}
+{% block content %}
+{{ block.super}}
+{% load bootstrap4 %}
+<br>
+<br>
+<div class="container">
+
+  <div class="card-columns">
+    {% for image in images %}
+    <div class="card border-secondary">
+      <img class="card-img-top" class="img-responsive" src="{{image.gallery_image.url}}" size="100px200">
+    </div>
+    {%endfor%}
+  </div>
+
+</div>
+
+{% endblock %}
