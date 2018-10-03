@@ -9,15 +9,6 @@
  align-content: center;
 } */
 
-h2, h4{
-  font-family: 'Shadows Into Light', cursive;
-}
-
-p, h5 {
-  color:white;
-  font-size: 20px;
-  font-family: 'Abel', sans-serif;
-}
 .navbar{
 
   font-family: 'Abel', sans-serif;

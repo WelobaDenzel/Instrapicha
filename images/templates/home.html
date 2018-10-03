@@ -10,6 +10,15 @@
     {% for image in images %}
     <div class="card border-secondary">
       <img class="card-img-top" class="img-responsive" src="{{image.insta_image.url}}" size="">
+
+    <div class="card-footer">
+      <p>{{image.caption}}</p>
+      {% for profile in profiles %}
+      <p>{{profile.name}}</p>
+      {%endfor%}
+      <p>{{image.likes}}</p>
+      <p>{{image.comments}}</p>
+    </div>
     </div>
     {%endfor%}
   </div>
