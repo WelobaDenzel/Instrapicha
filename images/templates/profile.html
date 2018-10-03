@@ -1,0 +1,27 @@
+{%extends 'base.html'%}
+{% block content %}
+{{ block.super}}
+{% load bootstrap4 %}
+<br>
+<br>
+<div class="container">
+
+  <div class="card-columns">
+
+    <div class="card border-secondary">
+      <img class="card-img-top" class="img-responsive" src="{{profile.profile_photo.url}}" size="">
+    <div class="card-footer">
+      <p>{{profile.name}}</p>
+      <p>{{profile.bio}}</p>
+      </div>
+    </div>
+
+  </div>
+{%endif%}
+{% empty %}
+  <div class="row">
+    <h2 class="text-center">There No News Items</h2>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,11 +1,22 @@
 from django.shortcuts import render
 from django.http  import HttpResponse,Http404,HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 from .models import *
+
 # Create your views here.
+@login_required(login_url='/accounts/login/')
 def home(request):
     images = Image.objects.all()
-    
+
     return render(request,"home.html",{"images":images})
+
+@login_required(login_url='/accounts/profile/')
+def profile(request,profile_id):
+
+    profile = Profile.objects.get(id = profile_id)
+
+    return render(request,"profile.html",{"profile":profile})
+
 
 def search_results(request):
 

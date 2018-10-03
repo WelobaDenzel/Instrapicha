@@ -7,8 +7,10 @@ class Profile(models.Model):
     bio= HTMLField()
     name = models.ForeignKey(User, on_delete=models.CASCADE)
 
-    def all_profiles(self):
-        return Profile.objects.all()
+    @classmethod
+    def my_profile(cls,id):
+        profile= cls.objects.filter(id=id)
+        return profile
 
 class Image(models.Model):
     insta_image = models.ImageField(upload_to='picha/')
