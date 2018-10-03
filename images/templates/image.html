@@ -1,0 +1,27 @@
+{%extends 'base.html'%}
+{% block content %}
+{{ block.super}}
+{% load bootstrap4 %}
+<br>
+<br>
+<div class="container">
+
+  <div class="card-columns">
+
+    <div class="card border-secondary">
+      <img class="card-img-top" class="img-responsive" src="{{image.insta_image.url}}" size="100px200">
+    </div>
+    <div class="card-body">
+      <p>Caption: {{image.caption}}</p>
+      <p>Comments: {{image.comments}}</p>
+      <p>Poster: {{image.profile.name}}</p>
+
+      {% for profile in profiles %}
+      <p> poster: {{ profile.name }} </p>
+      {% endfor %}
+    </div>
+
+  </div>
+
+</div>
+{% endblock %}
