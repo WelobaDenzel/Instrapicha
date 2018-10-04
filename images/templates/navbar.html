@@ -37,7 +37,10 @@
               <a href="{%url 'home'%}">Home</a>
             </li>
             <li>
-              <a href="">Profile</a>
+              <a href="{%url 'add_profile'%}">Profile</a>
+            </li>
+            <li>
+              <a href="/accounts/profile/{{user.id}}">View profile</a>
             </li>
             <li>
               <a href="/accounts/password/change">Change Password</a>

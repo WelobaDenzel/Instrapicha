@@ -5,11 +5,15 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^$', views.home,name='home'),
-    url(r'^accounts/profile/(\d+)', views.profile,name='profile'),
-    # url(r'^accounts/profile/', views.homes,name='homes'),
+    url(r'^accounts/profile/$', views.home,name='home'),
+    url(r'^accounts/profile/(\d+)', views.profile, name='profile'),
     url(r'^search/', views.search_results, name='search_results'),
-    url(r'^image/(\d+)',views.get_image_by_id,name ='image')
+    url(r'^image/(\d+)',views.get_image_by_id,name ='image'),
+    url(r'^new/profile$', views.add_profile, name='add_profile')
 ]
 
 if settings.DEBUG:
     urlpatterns+= static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+
+
+    #

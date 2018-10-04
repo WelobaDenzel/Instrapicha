@@ -17,10 +17,12 @@
     </div>
 
   </div>
-{%endif%}
-{% empty %}
-  <div class="row">
-    <h2 class="text-center">There No News Items</h2>
+
+<div class="row">
+    {% autoescape on %}
+    {{profile.bio| safe}}
+   {% endautoescape %}
+
   </div>
 </div>
 

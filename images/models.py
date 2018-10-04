@@ -4,12 +4,12 @@ from tinymce.models import HTMLField
 # Create your models here.
 class Profile(models.Model):
     profile_photo= models.ImageField(upload_to='picha/')
-    bio= HTMLField()
+    bio= models.CharField(max_length=240)
     name = models.ForeignKey(User, on_delete=models.CASCADE)
 
     @classmethod
     def my_profile(cls,id):
-        profile= cls.objects.filter(id=id)
+        profile= cls.objects.get(id=id)
         return profile
 
 class Image(models.Model):
