@@ -18,7 +18,8 @@
 {% for image in images %}
 <div class="card mx-auto" style="max-width:50rem; margin-top:50px;">
   <div class="card-header"><img class="img-circle" src="{{image.profile.profile_photo.url}}" style="height:40px;margin-top:10px;margin-bottom:10px;">
-    <label>{{image.profile.name}}</label></div>
+    <a href="/accounts/profile/{{user.id}}">
+    <label>{{image.profile.name}}</label></div></a>
 
     <img src="{{image.insta_image.url}}" class="card-img-top">
     <div class="card-body">
