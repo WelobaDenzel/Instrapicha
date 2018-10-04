@@ -51,3 +51,18 @@ def add_profile(request):
     else:
         form = NewProfileForm()
     return render(request, 'new_profile.html', {"form": form})
+
+@login_required(login_url='/accounts/login/')
+def update_image(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = UploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            image = form.save(commit=False)
+            image.name = current_user
+            image.save()
+        return redirect('home')
+
+    else:
+        form = UploadForm()
+    return render(request, 'upload.html', {"form": form})

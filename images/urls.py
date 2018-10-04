@@ -8,7 +8,8 @@ urlpatterns = [
     url(r'^accounts/profile/(\d+)', views.profile, name='profile'),
     url(r'^search/', views.search_results, name='search_results'),
     url(r'^image/(\d+)',views.get_image_by_id,name ='image'),
-    url(r'^new/profile$', views.add_profile, name='add_profile')
+    url(r'^new/profile$', views.add_profile, name='add_profile'),
+    url(r'^upload$', views.update_image, name='upload')
 ]
 
 if settings.DEBUG:
