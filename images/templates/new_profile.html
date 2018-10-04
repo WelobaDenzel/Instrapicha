@@ -1,34 +1,24 @@
-{% load bootstrap4 %} {% load staticfiles %}
-<!DOCTYPE html>
-<html>
+{%extends 'base.html'%}
+{% block content %}
+{{ block.super}}
+{% load bootstrap4 %}
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-<br>
-<br>
   <title>New Profile</title>
   {{form.media}}
 
-{% block styles %} {% bootstrap_css %}
-  <link rel="stylesheet" href="{% static 'css/instagram.css' %}"> {% endblock %}
 
-</head>
 
-<body>
-
+<div class="card mx-auto" style="max-width:50rem; margin-top:50px;">
   <form  action="{%url 'add_profile'%}" method="post" enctype="multipart/form-data">
     {%csrf_token%}
 
     {% bootstrap_form form%}
     <input type="submit" class="btn btn-success btn-lg" value="Post">
   </form>
-
+</div>
    {% block scripts %}
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-  {% bootstrap_javascript %} {% endblock %}
-
-</body>
-
-</html>
+  {% bootstrap_javascript %}
+{% endblock %}
+{% endblock %}

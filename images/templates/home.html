@@ -16,19 +16,20 @@
   </div>
 </div>
 {% for image in images %}
-<div class="container img-container">
-  <div id="upload-div"></div>
-  <div class="img-div">
-    <div class="header"><img class="img-circle" src="{{image.profile.profile_photo.url}}" style="height:40px;margin-top:10px;margin-bottom:10px;">
-      <label>{{image.profile.name}}</label>
-    </div><img src="{{image.insta_image.url}}">
-    <div class="header"><a href="#"><i class="fa fa-heart-o"></i></a><a href="#"><i class="fa fa-comment-o"></i></a></div>
+<div class="card mx-auto" style="max-width:50rem; margin-top:50px;">
+  <div class="card-header"><img class="img-circle" src="{{image.profile.profile_photo.url}}" style="height:40px;margin-top:10px;margin-bottom:10px;">
+    <label>{{image.profile.name}}</label></div>
+
+    <img src="{{image.insta_image.url}}" class="card-img-top">
+    <div class="card-body">
+    <div class="header"><a href="#"><i class="fas fa-heart" style="margin-right:10px;"></i></a><a href="#"><i class="far fa-comment"></i></a></div>
     <div class="more-section">
       <label>10 Likes</label>
       <p><strong>{{image.profile.name}} </strong>{{image.caption}}</p>
-    </div>
   </div>
 </div>
+</div>
+
 {%endfor%}
 </div>
 
