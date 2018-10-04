@@ -5,12 +5,12 @@ from tinymce.models import HTMLField
 class Profile(models.Model):
     profile_photo= models.ImageField(upload_to='picha/')
     bio= models.CharField(max_length=240)
-    name = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=50)
 
-    def __str__(self):
-        return self.name
+    # def __str__(self):
+    #     return self.name
 
-    def save_user(self):
+    def save_profile(self):
         self.save()
 
     @classmethod
@@ -43,5 +43,5 @@ class Image(models.Model):
         return Image.objects.all()
 
 class Likes(models.Model):
-	post_id = models.IntegerField()
+	image_id = models.IntegerField()
 	admirer = models.CharField(max_length=20)
