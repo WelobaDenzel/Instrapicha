@@ -10,7 +10,7 @@ def home(request):
 
     return render(request,"home.html",{"images":images})
 
-@login_required(login_url='/accounts/profile/')
+@login_required
 def profile(request,profile_id):
 
     profile = Profile.objects.get(pk = profile_id)
