@@ -14,8 +14,9 @@ def home(request):
 def profile(request,profile_id):
 
     profile = Profile.objects.get(pk = profile_id)
+    images = Image.objects.all()
 
-    return render(request,"profile.html",{"profile":profile})
+    return render(request,"profile.html",{"profile":profile,"images":images})
 
 def search_results(request):
 
@@ -31,11 +32,22 @@ def search_results(request):
         return render(request, 'search.html',{"message":message})
 
 def get_image_by_id(request,image_id):
-    try:
-        image = Image.objects.get(id = image_id)
-    except DoesNotExist:
-        raise Http404()
-    return render(request,"image.html", {"image":image})
+
+    image = Image.objects.get(id = image_id)
+
+    current_user = request.user
+    if request.method == 'POST':
+        form = CommentForm(request.POST, request.FILES)
+        if form.is_valid():
+            image = form.save(commit=False)
+            image.name = current_user
+            image.save()
+        return redirect('home')
+
+    else:
+        form = CommentForm()
+
+    return render(request,"image.html", {"image":image,"form": form})
 
 @login_required(login_url='/accounts/login/')
 def add_profile(request):
@@ -66,3 +78,18 @@ def update_image(request):
     else:
         form = UploadForm()
     return render(request, 'upload.html', {"form": form})
+
+@login_required(login_url='/accounts/login/')
+def add_comment(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = CommentForm(request.POST, request.FILES)
+        if form.is_valid():
+            image = form.save(commit=False)
+            image.name = current_user
+            image.save()
+        return redirect('home')
+
+    else:
+        form = CommentForm()
+    return render(request, 'comment.html', {"form": form})
