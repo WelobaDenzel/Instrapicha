@@ -14,7 +14,8 @@ def home(request):
         form = CommentForm(request.POST, request.FILES)
         if form.is_valid():
             image = form.save(commit=False)
-            image.name = current_user
+            image.user = current_user
+
             image.save()
         return redirect('home')
 
@@ -47,6 +48,7 @@ def search_results(request):
 def get_image_by_id(request,image_id):
 
     image = Image.objects.get(id = image_id)
+    comment = Image.objects.filter(id = image_id).all()
 
     current_user = request.user
     if request.method == 'POST':
@@ -60,7 +62,7 @@ def get_image_by_id(request,image_id):
     else:
         form = CommentForm()
 
-    return render(request,"image.html", {"image":image,"form": form})
+    return render(request,"image.html", {"image":image,"comment":comment,"form": form})
 
 @login_required(login_url='/accounts/login/')
 def add_profile(request):

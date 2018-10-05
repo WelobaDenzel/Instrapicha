@@ -24,7 +24,7 @@ class Profile(models.Model):
 class Comment(models.Model):
     comment = models.CharField(max_length=240, blank=True)
     user = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
-    admirer= models.ForeignKey('images.Image',on_delete=models.CASCADE, related_name='image',null=True)
+    imagecomment= models.ForeignKey('images.Image',on_delete=models.CASCADE, related_name='image',null=True)
 
     def save_comment(self):
         self.save()
@@ -38,7 +38,7 @@ class Image(models.Model):
     caption = models.CharField(max_length=70,null=True)
     like=models.IntegerField(default=0)
     user = models.ForeignKey(User,on_delete=models.CASCADE, related_name='posts',null=True)
-    thoughts = models.ForeignKey(Comment,on_delete=models.CASCADE, null=True, blank=True)
+    thoughts = models.ForeignKey(Comment,on_delete=models.CASCADE, null=True)
     profile= models.ForeignKey(Profile,null=True)
 
     @classmethod
