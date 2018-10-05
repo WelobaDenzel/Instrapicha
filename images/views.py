@@ -15,7 +15,7 @@ def home(request):
 def profile(request,profile_id):
 
     profile = Profile.objects.get(pk = profile_id)
-    images = Image.objects.filter()
+    images = Image.objects.filter(profile_id=profile).all()
 
     return render(request,"profile.html",{"profile":profile,"images":images})
 

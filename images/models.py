@@ -17,7 +17,7 @@ class Profile(models.Model):
         profile= cls.objects.get(id=id)
         return profile
 
-    
+
 class Comment(models.Model):
     comment = models.CharField(max_length=240, blank=True)
     user = models.ForeignKey(User,on_delete=models.CASCADE)
@@ -42,6 +42,10 @@ class Image(models.Model):
     def all_images(self):
 
         return Image.objects.all()
+
+    @classmethod
+    def get_user_images(cls, profile_id):
+        images=Image.objects.filter(profile_id=user.id)
 
 class Likes(models.Model):
     likes= models.IntegerField (default=0)
