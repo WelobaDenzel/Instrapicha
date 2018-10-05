@@ -19,20 +19,25 @@
 <div class="card mx-auto" style="max-width:50rem; margin-top:50px;">
   <div class="card-header"><img class="img-circle" src="{{image.profile.profile_photo.url}}" style="height:40px;margin-top:10px;margin-bottom:10px;">
     <a href="/accounts/profile/{{user.id}}">
-    <label>{{image.profile.username}}</label></div></a>
+    <label>{{image.user}}</label></div></a>
 
     <img src="{{image.insta_image.url}}" class="card-img-top">
     <div class="card-body">
     <div class="header"><a href="#"><i class="fas fa-heart" style="margin-right:10px;"></i></a><a href="#"><i class="far fa-comment"></i></a></div>
     <div class="more-section">
       <label>10 Likes</label>
-      <p><strong>{{image.username}} </strong>{{image.caption}}</p>
-      <p>{{image.profile.comment}}</p>
+      <p><strong>{{image.user}} </strong>{{image.caption}}</p>
+
+
+
+      {% for comment in image.image.all %}
+      <p><strong>{{comment.user}}</strong> {{comment.comment}}</p>
+      {%endfor%}
   </div>
 </div>
 </div>
-
 {%endfor%}
+
 </div>
 
 </div>

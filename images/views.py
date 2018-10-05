@@ -7,14 +7,15 @@ from .forms import *
 @login_required(login_url='/accounts/login/')
 def home(request):
     images = Image.objects.all()
+    comments = Comment.objects.all()
 
-    return render(request,"home.html",{"images":images})
+    return render(request,"home.html",{"images":images, "comments":comments})
 
 @login_required
 def profile(request,profile_id):
 
     profile = Profile.objects.get(pk = profile_id)
-    images = Image.objects.all()
+    images = Image.objects.filter()
 
     return render(request,"profile.html",{"profile":profile,"images":images})
 
