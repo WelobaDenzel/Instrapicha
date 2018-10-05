@@ -1,10 +1,10 @@
 from django import forms
-from .models import Image, Profile, Comment
+from .models import *
 
 class NewProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        exclude = ['name']
+        fields = "__all__"
 
 class UploadForm(forms.ModelForm):
     class Meta:
@@ -13,5 +13,5 @@ class UploadForm(forms.ModelForm):
 
 class CommentForm(forms.ModelForm):
     class Meta:
-        model= Comment
+        model = Comment
         fields = "__all__"

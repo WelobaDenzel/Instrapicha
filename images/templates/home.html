@@ -19,7 +19,7 @@
 <div class="card mx-auto" style="max-width:50rem; margin-top:50px;">
   <div class="card-header"><img class="img-circle" src="{{image.profile.profile_photo.url}}" style="height:40px;margin-top:10px;margin-bottom:10px;">
     <a href="/accounts/profile/{{user.id}}">
-    <label>{{image.username}}</label></div></a>
+    <label>{{image.profile.username}}</label></div></a>
 
     <img src="{{image.insta_image.url}}" class="card-img-top">
     <div class="card-body">
@@ -27,7 +27,7 @@
     <div class="more-section">
       <label>10 Likes</label>
       <p><strong>{{image.username}} </strong>{{image.caption}}</p>
-      <p>{{image.username.comment}}</p>
+      <p>{{image.profile.comment}}</p>
   </div>
 </div>
 </div>
