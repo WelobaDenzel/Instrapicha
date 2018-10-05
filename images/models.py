@@ -4,9 +4,9 @@ from tinymce.models import HTMLField
 
 # Create your models here.
 class Profile(models.Model):
-    profile_photo= models.ImageField(upload_to='picha/')
-    bio= models.CharField(max_length=240)
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    profile_photo= models.ImageField(upload_to='picha/',null=True)
+    bio= models.CharField(max_length=240, null=True)
+    user = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
 
 
     def save_profile(self):
@@ -17,11 +17,14 @@ class Profile(models.Model):
         profile= cls.objects.get(id=id)
         return profile
 
+    def __str__(self):
+        return self.user
+
 
 class Comment(models.Model):
     comment = models.CharField(max_length=240, blank=True)
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
-    admirer= models.ForeignKey('images.Image',on_delete=models.CASCADE, related_name='image')
+    user = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
+    admirer= models.ForeignKey('images.Image',on_delete=models.CASCADE, related_name='image',null=True)
 
     def save_comment(self):
         self.save()
@@ -31,12 +34,12 @@ class Comment(models.Model):
 
 
 class Image(models.Model):
-    insta_image = models.ImageField(upload_to='picha/')
-    caption = models.CharField(max_length=70)
+    insta_image = models.ImageField(upload_to='picha/',null=True)
+    caption = models.CharField(max_length=70,null=True)
     like=models.IntegerField(default=0)
-    user = models.ForeignKey(User,on_delete=models.CASCADE, related_name='posts')
+    user = models.ForeignKey(User,on_delete=models.CASCADE, related_name='posts',null=True)
     thoughts = models.ForeignKey(Comment,on_delete=models.CASCADE, null=True, blank=True)
-    profile= models.ForeignKey(Profile)
+    profile= models.ForeignKey(Profile,null=True)
 
     @classmethod
     def all_images(self):

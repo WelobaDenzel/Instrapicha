@@ -16,7 +16,7 @@
       </div>
     </div>
     {% for image in images %}
-    <div class="card mx-auto" style="max-width:50rem; margin-top:50px;">
+      <div class="card mx-auto" style="max-width:50rem; margin-top:50px;">
       <div class="card-header"><img class="img-circle" src="{{image.profile.profile_photo.url}}" style="height:40px;margin-top:10px;margin-bottom:10px;">
         <a href="/accounts/profile/{{user.id}}">
         <label>{{image.user}}</label></div></a>
