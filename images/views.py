@@ -24,10 +24,10 @@ def home(request):
     return render(request,"home.html",{"images":images, "comments":comments,"form": form})
 
 @login_required
-def profile(request,profile_id):
+def profile(request,id):
 
-    profile = Profile.objects.get(pk = profile_id)
-    images = Image.objects.filter(profile_id=profile).all()
+    profile = Profile.objects.get(pk = id)
+    images = Image.objects.filter(pk = id).all()
 
     return render(request,"profile.html",{"profile":profile,"images":images})
 
