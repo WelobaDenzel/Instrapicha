@@ -9,9 +9,9 @@ class NewProfileForm(forms.ModelForm):
 class UploadForm(forms.ModelForm):
     class Meta:
         model = Image
-        exclude =['user','thoughts','like','profile']
+        exclude =['posted_by']
 
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        exclude =['user','imagecomment']
+        exclude =['poster','image']

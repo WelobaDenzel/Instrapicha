@@ -40,7 +40,7 @@ class Image(models.Model):
 class Comment(models.Model):
     poster = models.ForeignKey(User, related_name='comments',null=True)
     image = models.ForeignKey(Image, related_name='comments',null=True)
-    comment = models.TextField(null=True)
+    comment = models.CharField(max_length=200, null=True)
 
 
     def save_comment(self):

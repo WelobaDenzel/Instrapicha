@@ -70,7 +70,7 @@ def add_profile(request):
         form = NewProfileForm(request.POST, request.FILES)
         if form.is_valid():
             profile = form.save(commit=False)
-            profile.editor = current_user
+            profile.user = current_user
             profile.save()
         return redirect('home')
 
@@ -85,7 +85,7 @@ def update_image(request):
         form = UploadForm(request.POST, request.FILES)
         if form.is_valid():
             image = form.save(commit=False)
-            image.user = current_user
+            image.posted_by = current_user
             image.save()
         return redirect('home')
 
@@ -100,7 +100,7 @@ def add_comment(request):
         form = CommentForm(request.POST, request.FILES)
         if form.is_valid():
             comment = form.save(commit=False)
-            comment.user= current_user
+            comment.poster = current_user
             comment.save()
         return redirect('home')
 
