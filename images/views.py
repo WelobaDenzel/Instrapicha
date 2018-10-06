@@ -11,12 +11,11 @@ def home(request):
 
     current_user = request.user
     if request.method == 'POST':
-        form = CommentForm(request.POST, request.FILES)
+        form = CommentForm(request.POST)
         if form.is_valid():
-            image = form.save(commit=False)
-            image.user = current_user
-
-            image.save()
+            comment = form.save(commit=False)
+            comment.user = current_user
+            comment.save()
         return redirect('home')
 
     else:
@@ -100,9 +99,9 @@ def add_comment(request):
     if request.method == 'POST':
         form = CommentForm(request.POST, request.FILES)
         if form.is_valid():
-            image = form.save(commit=False)
-            image.name = current_user
-            image.save()
+            comment = form.save(commit=False)
+            comment.user= current_user
+            comment.save()
         return redirect('home')
 
     else:
