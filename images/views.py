@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from django.http  import HttpResponse,Http404,HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from .models import *
@@ -24,25 +24,28 @@ def home(request):
     return render(request,"home.html",{"images":images, "comments":comments,"form": form})
 
 @login_required
-def profile(request,id):
+def profile(request,profile_id):
 
-    profile = Profile.objects.get(pk = id)
-    images = Image.objects.filter(pk = id).all()
+    profile = Profile.objects.get(pk = profile_id)
+    images = Image.objects.filter(profile_id=profile).all()
 
     return render(request,"profile.html",{"profile":profile,"images":images})
 
 def search_results(request):
+    current_user = request.user
+    profile = Profile.get_profile()
+    if 'username' in request.GET and request.GET["username"]:
+        search_term = request.GET.get("username")
+        searched_name = Profile.find_profile(search_term)
+        message = search_term
 
-    if 'image' in request.GET and request.GET['image']:
-        search_images = request.GET.get("image")
-        searched_images = Image.search_by_category(search_images)
-        message = f"{search_images}"
-
-        return render(request, 'search.html',{"message":message,"images": searched_images})
-
+        return render(request,'search.html',{"message":message,
+                                             "profiles":profile,
+                                             "user":current_user,
+                                             "username":searched_name})
     else:
-        message = "You haven't searched for any image"
-        return render(request, 'search.html',{"message":message})
+        message = "You haven't searched for any term"
+        return render(request,'search.html',{"message":message})
 
 def get_image_by_id(request,image_id):
 
@@ -54,7 +57,7 @@ def get_image_by_id(request,image_id):
         form = CommentForm(request.POST, request.FILES)
         if form.is_valid():
             image = form.save(commit=False)
-            image.name = current_user
+            image.posted_by = current_user
             image.save()
         return redirect('home')
 
@@ -81,29 +84,34 @@ def add_profile(request):
 @login_required(login_url='/accounts/login/')
 def update_image(request):
     current_user = request.user
-    if request.method == 'POST':
-        form = UploadForm(request.POST, request.FILES)
-        if form.is_valid():
-            image = form.save(commit=False)
-            image.posted_by = current_user
-            image.save()
-        return redirect('home')
-
-    else:
-        form = UploadForm()
-    return render(request, 'upload.html', {"form": form})
+    profiles = Profile.get_profile()
+    for profile in profiles:
+        if profile.user.id == current_user.id:
+            if request.method == 'POST':
+                form = UploadForm(request.POST,request.FILES)
+                if form.is_valid():
+                    upload = form.save(commit=False)
+                    upload.posted_by = current_user
+                    upload.profile = profile
+                    upload.save()
+                    return redirect('home')
+            else:
+                form = UploadForm()
+            return render(request,'upload.html',{"user":current_user,"form":form})
 
 @login_required(login_url='/accounts/login/')
-def add_comment(request):
+def add_comment(request,pk):
+    image = get_object_or_404(Image, pk=pk)
     current_user = request.user
     if request.method == 'POST':
-        form = CommentForm(request.POST, request.FILES)
+        form = CommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
+            comment.image = image
             comment.poster = current_user
             comment.save()
-        return redirect('home')
-
+            return redirect('home')
     else:
         form = CommentForm()
-    return render(request, 'comment.html', {"form": form})
+    return render(request, 'comment.html', {"user":current_user,
+                                            "comment_form":form})

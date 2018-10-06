@@ -17,16 +17,16 @@ class Profile(models.Model):
         profile= cls.objects.get(id=id)
         return profile
 
-    def __str__(self):
-        return self.user
-
-
+    @classmethod
+    def get_profile(cls):
+        profile = Profile.objects.all()
+        return profile
+        
 class Image(models.Model):
     posted_by = models.ForeignKey(User, null=True)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE,null=True)
     insta_image = models.ImageField(upload_to='picha/',null=True)
     caption = models.TextField(null=True)
-
-
 
     @classmethod
     def all_images(self):
@@ -37,9 +37,12 @@ class Image(models.Model):
     def get_user_images(cls, profile_id):
         images=Image.objects.filter(profile_id=user.id)
 
+    def __str__(self):
+       return str(self.caption)
+
 class Comment(models.Model):
-    poster = models.ForeignKey(User, related_name='comments',null=True)
-    image = models.ForeignKey(Image, related_name='comments',null=True)
+    poster = models.ForeignKey(User, on_delete=models.CASCADE,null=True)
+    image = models.ForeignKey(Image, on_delete=models.CASCADE, related_name='comments',null=True)
     comment = models.CharField(max_length=200, null=True)
 
 

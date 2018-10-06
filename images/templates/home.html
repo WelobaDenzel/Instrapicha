@@ -10,8 +10,8 @@
   <div class="col-md-12" style="padding:0px;">
     <div class="top-menu-logo"><img src="assets/img/logo.jpg" class="center-block" style="height:40px;margin-top:10px;margin-bottom:10px;">
       <div class="menu-buttons">
-        <button class="btn btn-default" type="button" id="upload-but"><i class="glyphicon glyphicon-upload"></i></button>
-        <button class="btn btn-default" type="button" id="profile-but"><i class="glyphicon glyphicon-user"></i></button>
+        <button class="btn btn-default" type="button" id="upload-but"><a href="/upload"><i class="fas fa-upload"></i></button>
+        <button class="btn btn-default" type="button" id="profile-but"><i class="fas fa-user-cog"></i></button>
       </div>
     </div>
   </div>
@@ -20,16 +20,18 @@
 <div class="card mx-auto" style="max-width:50rem; margin-top:50px;">
   <div class="card-header"><img class="img-circle" src="{{image.profile.profile_photo.url}}" style="height:40px;margin-top:10px;margin-bottom:10px;">
     <a href="/accounts/profile/{{user.id}}">
-    <label>{{image.user}}</label></div></a>
+    <label>{{image.posted_by}}</label></div></a>
 
     <img src="{{image.insta_image.url}}" class="card-img-top">
     <div class="card-body">
-    <div class="header"><a href="#"><i class="fas fa-heart" style="margin-right:10px;"></i></a><a href="#"><i class="far fa-comment"></i></a></div>
+    <div class="header">
+      <a href="#"><i class="fas fa-heart" style="margin-right:10px;color:black;"></i></a>
+      <a href="{% url 'comment' pk=image.pk %}" style="color:black;"><i class="far fa-comment"></i></a></div>
     <div class="more-section">
       <label>10 Likes</label>
-      <p><strong>{{image.user}} </strong>{{image.caption}}</p>
-      {% for comment in image.image.all %}
-      <p><strong>{{comment.user}}</strong> {{comment.comment}}</p>
+      <p><strong>{{image.posted_by}} </strong>{{image.caption}}</p>
+      {% for comment in image.comments.all %}
+      <p><strong>{{comment.poster}}</strong> {{comment.comment}}</p>
       {%endfor%}
       {{form.media}}
 

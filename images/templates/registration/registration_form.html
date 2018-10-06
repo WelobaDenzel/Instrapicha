@@ -1,39 +1,31 @@
 {%extends "registration/base.html"%} {% load bootstrap4 %}
 {% block content %}
-<div class="container">
+<div class="container-fluid mt-5 p-5">
   <div class="row">
     <!-- Empty div -->
-    <div class="col-md-4"></div>
-    <div class="col-md-4">
+    <div class="col-lg-6 p-5">
+      <img src="https://assets.wired.com/photos/w_1720/wp-content/uploads/2017/11/iphonex-TA.jpg" alt="" class="img-fluid">
+    </div>
+    <div class="col-lg-6 p-5">
       {% if form.errors %}
-        <p> Some Information Might be Incorrect </p>
+      <p>Some information might be incorrect</p>
       {% endif %}
-      <div class="card card-default">
-
-        <div class="card-heading">
+      <div class="card">
+        <div class="card-header">
           <h3 class="text-center">Sign Up</h3>
         </div>
         <div class="card-body">
-
-          <form  action="/accounts/register/" method="post">
-            {% csrf_token %}
-            {% bootstrap_form form %}
+          <form action="/accounts/register/" method="post">
+            {% csrf_token %} {% bootstrap_form form %}
             <div class="form-group">
-              <input type="submit" class="btn btn-primary btn-sm" value="Sign Up">
+              <input type="submit" class="btn btn-outline-primary btn-sm" value="Sign Up">
             </div>
-
             <input type="hidden" name="next" value="{{next}}">
-
           </form>
-
         </div>
-
+        <p class="text-center">Do you already have an account?<a class="btn btn-default" href="/accounts/login/">Sign In</a></p>
       </div>
-
     </div>
-    <!-- empty div -->
-    <div class="col-md-4"></div>
   </div>
 </div>
-
 {% endblock %}
