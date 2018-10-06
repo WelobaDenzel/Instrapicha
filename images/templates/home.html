@@ -17,41 +17,33 @@
   </div>
 </div>
 {% for image in images %}
-<div class="card mx-auto" style="max-width:50rem; margin-top:50px;">
-  <div class="card-header"><img class="img-circle" src="{{image.profile.profile_photo.url}}" style="height:40px;margin-top:10px;margin-bottom:10px;">
-    <a href="/accounts/profile/{{user.id}}">
-    <label>{{image.posted_by}}</label></div></a>
+
+  <div class="card mx-auto" style="max-width:50rem; margin-top:50px;">
+    <div class="card-header"><img class="img-fluid rounded-circle" src="{{image.profile.profile_photo.url}}" style="height:40px;margin-top:10px;margin-bottom:10px;">
+      <a href="/accounts/profile/{{user.id}}">
+        <label>{{image.posted_by}}</label></div></a>
 
     <img src="{{image.insta_image.url}}" class="card-img-top">
     <div class="card-body">
-    <div class="header">
-      <a href="#"><i class="fas fa-heart" style="margin-right:10px;color:black;"></i></a>
-      <a href="{% url 'comment' pk=image.pk %}" style="color:black;"><i class="far fa-comment"></i></a></div>
-    <div class="more-section">
-      <label>10 Likes</label>
-      <p><strong>{{image.posted_by}} </strong>{{image.caption}}</p>
-      {% for comment in image.comments.all %}
-      <p><strong>{{comment.poster}}</strong> {{comment.comment}}</p>
-      {%endfor%}
-      {{form.media}}
+      <div class="header">
+        <a href="#"><i class="fas fa-heart" style="margin-right:10px;color:black;"></i></a>
+        <a href="#" style="color:black;"><i class="far fa-comment"></i></a></div>
+      <div class="more-section">
+        <label>10 Likes</label>
+        <p><strong>{{image.posted_by}} </strong>{{image.caption}}</p>
+        {% for comment in comments %}
+        {% if image.id == comment.image.id %}
+        <p><strong>{{comment.poster}}</strong> {{comment.comment}}</p>
+        {% endif %}
+        {%endfor%}
+        <p><a href="{% url 'comment' pk=image.pk %}">Add comment</a></p>
 
-      <form  action="{%url 'home'%}" method="post" enctype="multipart/form-data">
-        {%csrf_token%}
 
-        {% bootstrap_form form%}
-        <input type="submit" class="btn btn-success btn-lg" value="Post">
-      </form>
-
-       {% block scripts %}
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-      {% bootstrap_javascript %}
-    {% endblock %}
+      </div>
+    </div>
   </div>
-</div>
-</div>
-{%endfor%}
 
+  {% endfor %}
 </div>
 
 </div>

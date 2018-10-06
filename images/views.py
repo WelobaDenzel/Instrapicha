@@ -6,31 +6,24 @@ from .forms import *
 # Create your views here.
 @login_required(login_url='/accounts/login/')
 def home(request):
-    images = Image.objects.all()
-    comments = Comment.objects.all()
-
     current_user = request.user
-    if request.method == 'POST':
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.user = current_user
-            comment.save()
-        return redirect('home')
-
-    else:
-        form = CommentForm()
-
-    return render(request,"home.html",{"images":images, "comments":comments,"form": form})
+    profile = Profile.get_profile()
+    image = Image.get_images()
+    comments = Comment.get_comment()
+    return render(request,'home.html',{"profile":profile,"comments":comments,"current_user":current_user,"images":image,})
 
 @login_required
-def profile(request,profile_id):
+def profile(request,pk):
 
-    profile = Profile.objects.get(pk = profile_id)
-    images = Image.objects.filter(profile_id=profile).all()
+    current_user = request.user
+    image = Image.get_images()
+    profile = Profile.get_profile()
+    comment = Comment.get_comment()
+    user = get_object_or_404(User, pk=pk)
 
-    return render(request,"profile.html",{"profile":profile,"images":images})
+    return render(request,"profile.html",{"profile":profile,"images":image,"user":current_user,"comments":comment})
 
+@login_required(login_url='/accounts/login/')
 def search_results(request):
     current_user = request.user
     profile = Profile.get_profile()
@@ -47,6 +40,7 @@ def search_results(request):
         message = "You haven't searched for any term"
         return render(request,'search.html',{"message":message})
 
+@login_required(login_url='/accounts/login/')
 def get_image_by_id(request,image_id):
 
     image = Image.objects.get(id = image_id)
@@ -113,5 +107,4 @@ def add_comment(request,pk):
             return redirect('home')
     else:
         form = CommentForm()
-    return render(request, 'comment.html', {"user":current_user,
-                                            "comment_form":form})
+        return render(request,'comment.html',{"user":current_user,"comment_form":form})

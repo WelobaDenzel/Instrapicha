@@ -2,6 +2,7 @@
 {% block content %}
 {{ block.super}}
 {% load bootstrap4 %}
+<script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 <div class="container mt-5">
     <div class="row mt-5"></div>
     <div class="row mt-5"></div>
@@ -15,9 +16,9 @@
     <div class="row">
         {% if username %}
             {% for user in username %}
-            <img src="{{user.profilePic.url}}" alt="" class="img-fluid" style="border-radius:50%">
+            <img src="{{user.profile_photo.url}}" alt="" class="img-fluid" style="border-radius:50%">
             <h3 class="mt-5">
-                    <a href="{% url 'yourprofile' pk=user.user.id %}" class="btn btn-primary mt-3 ml-5">{{user.user.username}}</a>
+                    
             </h3>
             {% endfor %}
         {% endif %}

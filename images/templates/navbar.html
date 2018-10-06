@@ -17,9 +17,9 @@
       </button>
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <form class="form-inline mx-auto" role="search">
+        <form class="form-inline mx-auto" role="search" action="{% url 'search_results' %}" method="get">
           <div class="form-group">
-            <input class="form-control mr-sm-2" type="search" placeholder="&#xf002; search username" aria-label="Search" name="query">
+            <input type="text" class="form-control" role="search" placeholder="&#xf002; search username" aria-label="Search" name="username">
           </div>
         </form>
         <ul class="navbar-nav">
