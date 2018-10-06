@@ -6,12 +6,22 @@ from .forms import *
 # Create your views here.
 @login_required(login_url='/accounts/login/')
 def home(request):
-    current_user = request.user
-    profile = Profile.get_profile()
-    image = Image.get_images()
-    comments = Comment.get_comment()
-    return render(request,'home.html',{"profile":profile,"comments":comments,"current_user":current_user,"images":image,})
+    images = Image.objects.all()
+    comments = Comment.objects.all()
 
+    current_user = request.user
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.user = current_user
+            comment.save()
+        return redirect('home')
+
+    else:
+        form = CommentForm()
+
+    return render(request,"home.html",{"images":images, "comments":comments,"form": form})
 @login_required
 def profile(request,pk):
 
