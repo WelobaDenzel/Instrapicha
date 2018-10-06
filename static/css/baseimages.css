@@ -1,9 +1,13 @@
-.navbar {
-  font-family: 'Abel', sans-serif;
-  font-size: 20px;
-
+@import url('https://fonts.googleapis.com/css?family=Julius+Sans+One|Lobster|Sacramento|Open+Sans|Quicksand|Raleway|Lobster+Two');
+a.navbar-brand{
+  font-family: 'Lobster Two', cursive;
 }
-
+.form-inline:focus{
+  outline: none;
+}
+.form-control {
+  font-family: "FontAwesome"
+}
 body {
   /* background-image: url('/static/img/white.jpg'); */
   z-index: 0;
