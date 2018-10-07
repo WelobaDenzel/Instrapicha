@@ -8,6 +8,7 @@ from .forms import *
 def home(request):
     images = Image.objects.all()
     comments = Comment.objects.all()
+    profile = Profile.get_profile()
 
     current_user = request.user
     if request.method == 'POST':
@@ -21,17 +22,15 @@ def home(request):
     else:
         form = CommentForm()
 
-    return render(request,"home.html",{"images":images, "comments":comments,"form": form})
+    return render(request,"home.html",{"images":images, "comments":comments,"form": form,"profile":profile})
 @login_required
-def profile(request,pk):
+def profile(request,profile_id):
 
-    current_user = request.user
-    image = Image.get_images()
-    profile = Profile.get_profile()
-    comment = Comment.get_comment()
-    user = get_object_or_404(User, pk=pk)
+    profile = Profile.objects.get(pk = profile_id)
+    images = Image.objects.filter(profile_id=profile).all()
 
-    return render(request,"profile.html",{"profile":profile,"images":image,"user":current_user,"comments":comment})
+    return render(request,"profile.html",{"profile":profile,"images":images})
+
 
 @login_required(login_url='/accounts/login/')
 def search_results(request):
@@ -47,7 +46,7 @@ def search_results(request):
                                              "user":current_user,
                                              "username":searched_name})
     else:
-        message = "You haven't searched for any term"
+        message = "You haven't searched for any user"
         return render(request,'search.html',{"message":message})
 
 @login_required(login_url='/accounts/login/')

@@ -6,57 +6,84 @@
 <br>
 <br>
 <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
-<div class="container-fluid header-top">
-  <div class="col-md-12" style="padding:0px;">
-    <div class="top-menu-logo"><img src="assets/img/logo.jpg" class="center-block" style="height:40px;margin-top:10px;margin-bottom:10px;">
-      <div class="menu-buttons">
-        <button class="btn btn-default" type="button" id="upload-but"><a href="/upload"><i class="fas fa-upload"></i></button>
-        <button class="btn btn-default" type="button" id="profile-but"><i class="fas fa-user-cog"></i></button>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-1"></div>
+    <div class="col-9" style="max-width:40rem; margin-top:20px;">
+      {% for image in images %}
+
+      <div class="card mr-0" style="max-width:40rem; margin-top:20px;">
+        <div class="card-header"><img class="img-fluid rounded-circle" src="{{image.profile.profile_photo.url}}" style="height:40px;margin-top:5px;margin-bottom:5px;">
+          <a href="/accounts/profile/{{user.id}}">
+            <label>{{image.posted_by}}</label></a>
+        </div>
+        <img src="{{image.insta_image.url}}" class="card-img-top">
+        <div class="card-body">
+          <div class="header">
+            <a href="#"><i class="far fa-heart" style="margin-right:10px;color:black;"></i></a>
+            <a href="#" style="color:black;"><i class="far fa-comment"></i></a>
+            <a href="/upload"><i class="far fa-arrow-alt-circle-up" style="margin-right:15px;color:black;"></i></a>
+
+          </div>
+          <div class="more-section">
+            <label>10 Likes</label>
+            <p><strong>{{image.posted_by}} </strong>{{image.caption}}</p>
+            {% for comment in comments %}
+            {% if image.id == comment.image.id %}
+            <p><strong>{{comment.poster}}</strong> {{comment.comment}}</p>
+            {% endif %}
+            {%endfor%}
+            {{form.media}}
+
+            <form action="{%url 'comment' pk=image.id%}" method="post" enctype="multipart/form-data">
+              {%csrf_token%}
+
+              {% bootstrap_form form%}
+
+            </form>
+
+            {% block scripts %}
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+            {% bootstrap_javascript %}
+            {% endblock %}
+          </div>
+        </div>
+      </div>
+
+      {% endfor %}
+    </div>
+
+    <div class="col-2" style="max-width:20rem; margin-top:20px;">
+      <div class="" style="position:fixed; width:350px">
+
+        <header style="margin-bottom:30px;margin-top:20px;">
+          {% for profile in profile %}
+          {% if profile.user == user %}
+          <img class="mb-1" src="{{profile.profile_photo.url}}" alt="" style="height:50px;width:50px; border-radius:50%; float:left; margin-right:15px">
+          <p style="font-size:16px; align:center;">{{profile.user}}</p>
+            {% endif %}
+            {% endfor %}
+        </header>
+        <hr>
+        <p style="float:left; font-size:15px; font-weight:bolder; color:grey">Stories</p>
+        <p style="float:right; font-weight:bolder; font-size:15px"><a style="color:inherit" href="">View All</a></p>
+        <div class="stories" style="overflow-y:auto; height:400px;margin-top:50px;padding:10px; border-bottom: 1px solid #ddd; width:100%">
+          <hr>
+          {% for profile in profile %}
+          {% if profile.user != user %}
+          <div class="user_stories" style="margin-bottom:15px">
+            <img src="{{profile.profile_photo.url}}" alt="" style="height:50px;width:50px; border-radius:50%; float:left; margin-right:15px">
+            <a href="">
+              <p style="font-size:16px">{{profile.user}}<br>
+                <a href="#" class="btn btn-outline-secondary btn-sm">follow</a>
+          </div>
+          {% endif %}
+          {% endfor %}
+        </div>
       </div>
     </div>
   </div>
-</div>
-{% for image in images %}
-
-  <div class="card mx-auto" style="max-width:50rem; margin-top:50px;">
-    <div class="card-header"><img class="img-fluid rounded-circle" src="{{image.profile.profile_photo.url}}" style="height:40px;margin-top:10px;margin-bottom:10px;">
-      <a href="/accounts/profile/{{user.id}}">
-        <label>{{image.posted_by}}</label></div></a>
-
-    <img src="{{image.insta_image.url}}" class="card-img-top">
-    <div class="card-body">
-      <div class="header">
-        <a href="#"><i class="fas fa-heart" style="margin-right:10px;color:black;"></i></a>
-        <a href="#" style="color:black;"><i class="far fa-comment"></i></a></div>
-      <div class="more-section">
-        <label>10 Likes</label>
-        <p><strong>{{image.posted_by}} </strong>{{image.caption}}</p>
-        {% for comment in comments %}
-        {% if image.id == comment.image.id %}
-        <p><strong>{{comment.poster}}</strong> {{comment.comment}}</p>
-        {% endif %}
-        {%endfor%}
-        {{form.media}}
-
-      <form  action="{%url 'comment' pk=image.id%}" method="post" enctype="multipart/form-data">
-        {%csrf_token%}
-
-        {% bootstrap_form form%}
-        <input type="submit" class="btn btn-success btn-lg" value="Post">
-      </form>
-
-       {% block scripts %}
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-      {% bootstrap_javascript %}
-    {% endblock %}
-      </div>
-    </div>
-  </div>
-
-  {% endfor %}
-</div>
-
 </div>
 
 {% endblock %}
