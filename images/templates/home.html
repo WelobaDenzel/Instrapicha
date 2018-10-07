@@ -8,10 +8,10 @@
 <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 <div class="container-fluid">
   {% if profile.profile_photo.url != 0 %}
-  <p><b>{{profile.user}}</b> New here?<a href="{% url 'add_profile' %}" class="btn btn-info">  create a profile</a>
-    {% endif %}
+  <p><a href="{% url 'add_profile' %}" class="btn btn-info">  create a profile</a></p>
+    <p><a href="{% url 'upload' %}" class="btn btn-info">  upload photo</a>
 </p>
-
+{% endif %}
   <div class="row">
     <div class="col-1"></div>
     <div class="col-9" style="max-width:40rem; margin-top:20px;">
@@ -84,6 +84,9 @@
             <a href="{% url 'all' pk=profile.pk %}">
               <p style="font-size:16px">{{profile.user}}<br>
                 <a href="#" class="btn btn-outline-secondary btn-sm">follow</a>
+                {% for friend in request.user.userprofile.followers.all %}
+    <p>{{ friend }}</p>
+{% endfor %}
           </div>
           {% endif %}
           {% endfor %}
