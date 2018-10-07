@@ -3,6 +3,8 @@ from django.http  import HttpResponse,Http404,HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from .models import *
 from .forms import *
+# from django.views.generic.edit import UpdateView
+
 # Create your views here.
 @login_required(login_url='/accounts/login/')
 def home(request):
@@ -30,6 +32,21 @@ def profile(request,profile_id):
     images = Image.objects.filter(profile_id=profile).all()
 
     return render(request,"profile.html",{"profile":profile,"images":images})
+
+# @login_required(login_url='/accounts/login/')
+# def edit(request):
+#
+#     current_user = request.user
+#     if request.method == 'POST':
+#         form = EditProfileForm(request.POST,request.FILES)
+#         if form.is_valid():
+#             update = form.save(commit=False)
+#             update.user = current_user
+#             update.save()
+#             return redirect('profile')
+#     else:
+#         form = EditProfileForm()
+#     return render(request,'profile/edit.html',{"form":form})
 
 
 @login_required(login_url='/accounts/login/')
@@ -84,6 +101,18 @@ def add_profile(request):
         form = NewProfileForm()
     return render(request, 'new_profile.html', {"form": form})
 
+# class ProfileUpdate(UpdateView):
+#     model = Profile
+#     fields = ['profile_photo','bio']
+#     template_name_suffix = '_update_form'
+#
+#     def form_valid(self, form):
+#       self.object = form.save(commit=False)
+#       # Any manual settings go here
+#       self.object.save()
+#       return HttpResponseRedirect(self.object.get_absolute_url())
+
+
 @login_required(login_url='/accounts/login/')
 def update_image(request):
     current_user = request.user
@@ -117,3 +146,14 @@ def add_comment(request,pk):
     else:
         form = CommentForm()
         return render(request,'comment.html',{"user":current_user,"comment_form":form})
+
+@login_required(login_url="/accounts/login/")
+def like(request,operation,pk):
+    image = get_object_or_404(Image,pk=pk)
+    if operation == 'like':
+        image.likes += 1
+        image.save()
+    elif operation =='unlike':
+        image.likes -= 1
+        image.save()
+    return redirect('home')

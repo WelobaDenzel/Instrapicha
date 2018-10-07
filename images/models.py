@@ -27,11 +27,17 @@ class Profile(models.Model):
         profile = Profile.objects.filter(user__username__icontains=search_term)
         return profile
 
+    @classmethod
+    def edit_profile(cls,id,bio):
+        edited = Profile.objects.filter(id=id).update(bio = bio)
+        return edited
+
 class Image(models.Model):
     posted_by = models.ForeignKey(User, null=True)
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE,null=True)
     insta_image = models.ImageField(upload_to='picha/',null=True)
     caption = models.TextField(null=True)
+    likes = models.PositiveIntegerField(default=0)
 
     @classmethod
     def get_user_images(cls, profile_id):
@@ -41,6 +47,11 @@ class Image(models.Model):
     def get_images(cls):
         image = Image.objects.all()
         return image
+
+    @classmethod
+    def update_caption(cls,id,caption):
+        captioned = Image.objects.filter(id=id).update(caption = caption)
+        return captioned
 
     def __str__(self):
        return str(self.caption)
@@ -60,7 +71,3 @@ class Comment(models.Model):
     def get_comment(cls):
         comment = Comment.objects.all()
         return comment
-
-class Likes(models.Model):
-    image = models.ForeignKey(Image, related_name='likes',null=True)
-    liked_by = models.ForeignKey(User, related_name='liked_images',null=True)

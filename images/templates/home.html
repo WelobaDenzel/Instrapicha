@@ -7,6 +7,8 @@
 <br>
 <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 <div class="container-fluid">
+  <p><b>{{profile.user}}</b> New here?<a href="{% url 'add_profile' %}" class="btn btn-info">  create a profile</a>
+</p>
   <div class="row">
     <div class="col-1"></div>
     <div class="col-9" style="max-width:40rem; margin-top:20px;">
@@ -20,7 +22,7 @@
         <img src="{{image.insta_image.url}}" class="card-img-top">
         <div class="card-body">
           <div class="header">
-            <a href="#"><i class="far fa-heart" style="margin-right:10px;color:black;"></i></a>
+            <a id="like" href="{% url 'like' operation='like' pk=image.id%}"><i class="far fa-heart" style="margin-right:10px;color:black;"></i></a>
             <a href="#" style="color:black;"><i class="far fa-comment"></i></a>
             <a href="/upload"><i class="far fa-arrow-alt-circle-up" style="margin-right:15px;color:black;"></i></a>
 
@@ -73,7 +75,7 @@
           {% for profile in profile %}
           {% if profile.user != user %}
           <div class="user_stories" style="margin-bottom:15px">
-            <img src="{{profile.profile_photo.url}}" alt="" style="height:50px;width:50px; border-radius:50%; float:left; margin-right:15px">
+            <img src="{{profile.profile_photo.url}}" alt="" style="height:50px;width:50px; border-radius:50%; border-color: red; float:left; margin-right:15px">
             <a href="">
               <p style="font-size:16px">{{profile.user}}<br>
                 <a href="#" class="btn btn-outline-secondary btn-sm">follow</a>

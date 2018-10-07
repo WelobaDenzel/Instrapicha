@@ -1,3 +1,7 @@
-Hello {{name}}
+Hello {{user}},
 
-Welcome to the Moringa tribune newsletter You will find the most exciting news about Moringa School
+Welcome to the Insta Picha. Enjoy posting photos and following your best friends.
+Thank you!
+
+Regards,
+<i class="fab fa-instagram "></i> | 🅸🅽🆂🆃🅰🅿🅸🅲🅷🅰</a>
