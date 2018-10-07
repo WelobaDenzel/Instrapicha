@@ -28,7 +28,9 @@
 
           </div>
           <div class="more-section">
-            <label>10 Likes</label>
+            {% if image.likes >= 1 %}
+            <label>{{image.likes}} Likes</label>
+            {% endif %}
             <p><strong>{{image.posted_by}} </strong>{{image.caption}}</p>
             {% for comment in comments %}
             {% if image.id == comment.image.id %}
