@@ -7,8 +7,11 @@
 <br>
 <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 <div class="container-fluid">
+  {% if profile.profile_photo.url != 0 %}
   <p><b>{{profile.user}}</b> New here?<a href="{% url 'add_profile' %}" class="btn btn-info">  create a profile</a>
+    {% endif %}
 </p>
+
   <div class="row">
     <div class="col-1"></div>
     <div class="col-9" style="max-width:40rem; margin-top:20px;">

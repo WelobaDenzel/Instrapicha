@@ -160,7 +160,7 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-LOGIN_REDIRECT_URL='home'
+LOGIN_REDIRECT_URL='add_profile'
 
 # Configure Django App for Heroku.
 django_heroku.settings(locals())
