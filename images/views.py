@@ -157,3 +157,13 @@ def like(request,operation,pk):
         image.likes -= 1
         image.save()
     return redirect('home')
+
+@login_required(login_url='/accounts/login/')
+def all(request, pk):
+    profile = Profile.objects.get(pk=pk)
+    images = Image.objects.all().filter(posted_by_id=pk)
+    content = {
+        "profile": profile,
+        'images': images,
+    }
+    return render(request, 'all.html', content)

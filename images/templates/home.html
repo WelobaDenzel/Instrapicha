@@ -78,7 +78,7 @@
           {% if profile.user != user %}
           <div class="user_stories" style="margin-bottom:15px">
             <img src="{{profile.profile_photo.url}}" alt="" style="height:50px;width:50px; border-radius:50%; border-color: red; float:left; margin-right:15px">
-            <a href="">
+            <a href="{% url 'all' pk=profile.pk %}">
               <p style="font-size:16px">{{profile.user}}<br>
                 <a href="#" class="btn btn-outline-secondary btn-sm">follow</a>
           </div>

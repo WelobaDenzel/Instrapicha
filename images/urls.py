@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'^upload/', views.update_image, name='upload'),
     url(r'^comment/(?P<pk>\d+)',views.add_comment,name='comment'),
     url(r'^like/(?P<operation>.+)/(?P<pk>\d+)',views.like, name='like'),
+    url(r'^all/(?P<pk>\d+)', views.all, name='all'),
 
 ]
 

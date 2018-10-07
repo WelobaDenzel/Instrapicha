@@ -1,0 +1,34 @@
+{%extends 'base.html'%}
+{% block content %}
+{{ block.super}}
+{% load bootstrap4 %}
+<script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+<div class="container mt-2 ">
+  <div class="row">
+    <div class="col- mx-auto p-5 mt-2" style="background-color:#ffffff; border: 1px solid #e6e6e6;">
+      <div class="profile p-4" style="white-space:nowrap">
+        <img src="{{profile.profile_photo.url}}" alt="" style="height:95px;width:95px; border-radius:50%; display:inline;">
+        <p class="ml-3 mt-3" style="display:inline; white-space:nowrap; font-size:50px;"><strong>{{profile.user}}</strong></p>
+        <button class="btn btn-primary ml-3 mb-4" ><a href="#" style="display:inline; white-space:nowrap; color:#ffffff;">Follow<i class="fa fa-check fa-2x ml-2 fa-lg ml-1 mt-1" aria-hidden="true"></i></a></button>
+
+        <p class="text-center" style="font-size:20px"><span style="font-weight:bolder">0</span> Followers</span> <span style="margin-left:20px"> <span style="font-weight:bolder">0</span> Following</span>
+        </p>
+        <hr>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-5">
+  <div class="row">
+    <p>Posts by <strong><em style="color:#000">{{profile.user}}</em></strong></p>
+  </div>
+  <div class="row">
+    {% for pic in images %}
+    <div class="col-4 m-2">
+      <img src="{{pic.insta_image.url}}" alt="" class="img-fluid">
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
