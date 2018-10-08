@@ -56,8 +56,8 @@ def activate(request, uidb64, token):
 
 @login_required(login_url='/accounts/login/')
 def home(request):
-    images = Image.objects.all()
-    comments = Comment.objects.all()
+    images = Image.get_images()
+    comments = Comment.get_comment()
     profile = Profile.get_profile()
 
     current_user = request.user

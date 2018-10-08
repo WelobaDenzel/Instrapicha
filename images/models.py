@@ -34,19 +34,11 @@ class Image(models.Model):
     caption = models.TextField(null=True)
     likes = models.PositiveIntegerField(default=0)
 
-    @classmethod
-    def get_user_images(cls, profile_id):
-        images=Image.objects.filter(profile_id=user.id)
 
     @classmethod
     def get_images(cls):
-        image = Image.objects.all()
-        return image
-
-    @classmethod
-    def update_caption(cls,id,caption):
-        captioned = Image.objects.filter(id=id).update(caption = caption)
-        return captioned
+        images = Image.objects.all()
+        return images
 
     def __str__(self):
        return str(self.caption)
