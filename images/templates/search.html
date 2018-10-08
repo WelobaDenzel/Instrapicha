@@ -16,10 +16,11 @@
     <div class="row">
         {% if username %}
             {% for user in username %}
-            <img src="{{user.profile_photo.url}}" alt="" class="img-fluid" style="border-radius:50%">
-            <h3 class="mt-5">
-                    
-            </h3>
+          
+            <div class="card border-secondary">
+              <img class="card-img-top" class="img-responsive" src="{{user.profile_photo.url}}" size="100px200">
+            </div>
+            <div class="card-body">
             {% endfor %}
         {% endif %}
     </div>

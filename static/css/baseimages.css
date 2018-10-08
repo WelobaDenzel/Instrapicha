@@ -25,8 +25,8 @@ background-color: rgb(249, 249, 249);
 }
 
 @media screen and (max-width: 600px) {
-    .col {
-        width: 100%;
+    .stories {
+      display: none;
     }
 }
 

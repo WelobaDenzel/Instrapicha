@@ -7,11 +7,11 @@
 <br>
 <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 <div class="container-fluid">
-  {% if profile.profile_photo.url != 0 %}
+  {% if profile.profile_photo.url  %}
   <p><a href="{% url 'add_profile' %}" class="btn btn-info">+ profile</a></p>
-    <p><a href="{% url 'upload' %}" class="btn btn-info">+ photo</a>
-</p>
-{% endif %}
+  <p><a href="{% url 'upload' %}" class="btn btn-info">+ photo</a>
+  </p>
+  {% endif %}
   <div class="row">
     <div class="col-1"></div>
     <div class="col-9" style="max-width:40rem; margin-top:20px;">
@@ -26,7 +26,7 @@
         <div class="card-body">
           <div class="header">
             <a id="like" href="{% url 'like' operation='like' pk=image.id%}"><i class="far fa-heart" style="margin-right:10px;color:black;"></i></a>
-            <a href="#" style="color:black;"><i class="far fa-comment"></i></a>
+            <a href="#sema" style="color:black;"><i class="far fa-comment"></i></a>
             <a href="/upload"><i class="far fa-arrow-alt-circle-up" style="margin-right:15px;color:black;"></i></a>
 
           </div>
@@ -42,7 +42,7 @@
             {%endfor%}
             {{form.media}}
 
-            <form action="{%url 'comment' pk=image.id%}" method="post" enctype="multipart/form-data">
+            <form action="{%url 'comment' pk=image.id%}" method="post" enctype="multipart/form-data" id="sema">
               {%csrf_token%}
 
               {% bootstrap_form form%}
@@ -61,7 +61,7 @@
       {% endfor %}
     </div>
 
-    <div class="col-2" style="max-width:20rem; margin-top:20px;">
+    <div class="col-2 stories" style="max-width:20rem; margin-top:20px;">
       <div class="" style="position:fixed; width:350px">
 
         <header style="margin-bottom:30px;margin-top:20px;">
@@ -69,8 +69,8 @@
           {% if profile.user == user %}
           <img class="mb-1" src="{{profile.profile_photo.url}}" alt="" style="height:50px;width:50px; border-radius:50%; float:left; margin-right:15px">
           <p style="font-size:16px; align:center;">{{profile.user}}</p>
-            {% endif %}
-            {% endfor %}
+          {% endif %}
+          {% endfor %}
         </header>
         <hr>
         <p style="float:left; font-size:15px; font-weight:bolder; color:grey">Stories</p>
@@ -85,8 +85,8 @@
               <p style="font-size:16px">{{profile.user}}<br>
                 <a href="#" class="btn btn-outline-secondary btn-sm">follow</a>
                 {% for friend in request.user.userprofile.followers.all %}
-    <p>{{ friend }}</p>
-{% endfor %}
+                <p>{{ friend }}</p>
+                {% endfor %}
           </div>
           {% endif %}
           {% endfor %}
@@ -104,19 +104,19 @@
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLongTitle">Poster: {{image.posted_by}}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+          <span aria-hidden="true">&times;</span>
       </div>
 
       <div class="modal-body">
         <img class="card-img-top" class="img-responsive" src="{{image.insta_image.url}}" data-target="#extraModal{{image.id}}" data-toggle="modal" size="100px200">
         <p>About: {{image.caption}}</p>
         <label>{{image.likes}} Likes</label>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-outline-btn-secondary" data-dismiss="modal">Close</button>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-btn-secondary" data-dismiss="modal">Close</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
 </div>
 {% endfor %}
