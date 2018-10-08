@@ -1,4 +1,4 @@
-# Emdee's Gallery
+# 🅸🅽🆂🆃🅰🅿🅸🅲🅷🅰
 
 ![INSTRAPICHA](/static/img/instapicha.png)
 
