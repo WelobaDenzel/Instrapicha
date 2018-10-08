@@ -7,12 +7,11 @@
 <br>
 <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 <div class="container-fluid">
-  {% if profile.profile_photo.url  %}
+
   <p><a href="{% url 'add_profile' %}" class="btn btn-info">+ profile</a></p>
   <p><a href="{% url 'upload' %}" class="btn btn-info">+ photo</a>
-  </p>
-  {% endif %}
-  <div class="row">
+
+    <div class="row">
     <div class="col-1"></div>
     <div class="col-9" style="max-width:40rem; margin-top:20px;">
       {% for image in images %}
