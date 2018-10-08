@@ -13,11 +13,6 @@ class Profile(models.Model):
         self.save()
 
     @classmethod
-    def my_profile(cls,id):
-        profile= cls.objects.get(id=id)
-        return profile
-
-    @classmethod
     def get_profile(cls):
         profile = Profile.objects.all()
         return profile
@@ -27,10 +22,10 @@ class Profile(models.Model):
         profile = Profile.objects.filter(user__username__icontains=search_term)
         return profile
 
-    @classmethod
-    def edit_profile(cls,id,bio):
-        edited = Profile.objects.filter(id=id).update(bio = bio)
-        return edited
+    # @classmethod
+    # def edit_profile(cls,id,bio):
+    #     edited = Profile.objects.filter(id=id).update(bio = bio)
+    #     return edited
 
 class Image(models.Model):
     posted_by = models.ForeignKey(User, null=True)

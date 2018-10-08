@@ -30,7 +30,7 @@
             <a href="/upload"><i class="far fa-arrow-alt-circle-up" style="margin-right:15px;color:black;"></i></a>
 
           </div>
-          <div class="more-section">
+          <div class="like-section">
             {% if image.likes >= 1 %}
             <label>{{image.likes}} Likes</label>
             {% endif %}
@@ -75,7 +75,7 @@
         <hr>
         <p style="float:left; font-size:15px; font-weight:bolder; color:grey">Stories</p>
         <p style="float:right; font-weight:bolder; font-size:15px"><a style="color:inherit" href="">View All</a></p>
-        <div class="stories" style="overflow-y:auto; height:400px;margin-top:50px;padding:10px; border-bottom: 1px solid #ddd; width:100%">
+        <div class="all" style="overflow-y:auto; height:400px;margin-top:50px;padding:10px; border-bottom: 1px solid ; width:100%">
           <hr>
           {% for profile in profile %}
           {% if profile.user != user %}
