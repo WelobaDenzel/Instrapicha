@@ -32,16 +32,16 @@
             </li>
             {% endif %}
           </ul>
-          
+
           <ul class="list-inline">
             <li class="list-inline-item">
-              <span class="font-weight-bold">0</span> Posts
+              <span class="font-weight-bold">{{images|length}}</span> Posts
             </li>
             <li class="list-inline-item">
-              <span class="font-weight-bold">0 </span> Followers
+              <span class="font-weight-bold">{{profile.user.follow.all | length}}</span> Followers
             </li>
             <li class="list-inline-item">
-              <span class="font-weight-bold">0 </span> Following
+              <span class="font-weight-bold">{{profile.user.c_user.all | length}}</span> Following
             </li>
           </ul>
           <p class="font3">{{profile.bio}}</p>
