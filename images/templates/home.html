@@ -82,10 +82,10 @@
             <img src="{{profile.profile_photo.url}}" alt="" style="height:50px;width:50px; border-radius:50%; border-color: red; float:left; margin-right:15px">
             <a href="{% url 'all' pk=profile.pk %}">
               <p style="font-size:16px">{{profile.user}}<br>
-                <a href="#" class="btn btn-outline-secondary btn-sm">follow</a>
-                {% for friend in request.user.userprofile.followers.all %}
-                <p>{{ friend }}</p>
-                {% endfor %}
+
+                <a href="/follow/follow/{{profile.user.id}}/" class="btn btn-outline-secondary btn-sm">{{follow}}follow</a>
+                <a href="/follow/unfollow/{{profile.user.id}}/" class="btn btn-outline-secondary btn-sm">{{unfollow}}unfollow</a>
+
           </div>
           {% endif %}
           {% endfor %}

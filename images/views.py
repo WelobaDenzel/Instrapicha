@@ -215,3 +215,12 @@ def all(request, pk):
         'images': images,
     }
     return render(request, 'all.html', content)
+
+def follow(request,operation,id):
+    current_user=User.objects.get(id=id)
+    if operation=='follow':
+        Follow.follow(request.user,current_user)
+        return redirect('home')
+    elif operation=='unfollow':
+        Follow.unfollow(request.user,current_user)
+        return redirect('home')

@@ -58,3 +58,17 @@ class Comment(models.Model):
     def get_comment(cls):
         comment = Comment.objects.all()
         return comment
+
+class Follow(models.Model):
+    users=models.ManyToManyField(User,related_name='follow')
+    current_user=models.ForeignKey(User,related_name='c_user',null=True)
+
+    @classmethod
+    def follow(cls,current_user,new):
+        friends,created=cls.objects.get_or_create(current_user=current_user)
+        friends.users.add(new)
+
+    @classmethod
+    def unfollow(cls,current_user,new):
+        friends,created=cls.objects.get_or_create(current_user=current_user)
+        friends.users.remove(new)
