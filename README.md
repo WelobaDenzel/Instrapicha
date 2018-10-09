@@ -84,8 +84,7 @@ Admin should:
 * Django  framework and postgresql database
 
 ## Known Bugs
-* No redirection after confirming email when new users sign up
-* Follow function not working
+* User must add profile before uploading an image or viewing profiles
 * Multiple likes can be done on single image
 
 ## License

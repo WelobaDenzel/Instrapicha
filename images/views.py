@@ -198,6 +198,7 @@ def add_comment(request,pk):
 @login_required(login_url="/accounts/login/")
 def like(request,operation,pk):
     image = get_object_or_404(Image,pk=pk)
+    
     if operation == 'like':
         image.likes += 1
         image.save()
